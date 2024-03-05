@@ -2,6 +2,7 @@
 
 int trigger = 2;
 int echo = 3;
+int media;
 
 void setup() {
  
@@ -12,29 +13,35 @@ void setup() {
 
 void loop() {
   
-  long duration, inches, cm;
+  long duration, inches, cm, plus=0;
 
-  digitalWrite(trigger, LOW);
-  delayMicroseconds(2);
-  digitalWrite(trigger, HIGH);
-  delayMicroseconds(5);
-  digitalWrite(trigger, LOW);
+  for (int i=0; i<3; i++){
+  
+    digitalWrite(trigger, LOW);
+    delayMicroseconds(2);
+    digitalWrite(trigger, HIGH);
+    delayMicroseconds(5);
+    digitalWrite(trigger, LOW);
 
   //pulseIn is a function to read a pulse duration
-  duration = pulseIn(echo, HIGH);
+    duration = pulseIn(echo, HIGH);
 
-  inches = duration / 74 / 2;
-  cm = duration / 29 / 2;
+    plus = plus + duration;
+    
+    delay(100);
+  }
 
-  Serial.print("inches: ");
+  plus = plus / 3;
+
+  inches = plus / 74 / 2;
+  cm = plus / 29 / 2;
+
+  Serial.print(" inches: ");
   Serial.print(inches);
   Serial.print(" cm: ");
   Serial.print(cm);
   
   Serial.println();
-
-  delay(100);
-  
 
 }
 
